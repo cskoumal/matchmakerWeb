@@ -26,12 +26,9 @@
     you and me are. Maybe you'll be my friend, maybe we'll 
     fall in love, or maybe I'll absolutely despise you. Below 
     you will be presented with 5 different questions. You'll 
-    need to answer with a number 1-5. 1 would mean strongly 
-    disagree, 2 would mean disagree, 3 would be neutral, 4 
-    would be agree, and 5 would be strongly agree. After 
-    each question you will be told your compatibility score 
-    for that question. At the end it will tell you our total 
-    compatibility!
+    need to answer with either of 5 options given to you.
+    At the end it will tell you each question compatibility 
+    as well as our total compatibility!
 
     I hope you're my soulmate!
     </pre>
@@ -92,7 +89,14 @@
     <br /><br /><br />
 
     <button onclick='calculateCompatibility()'>Calculate Compatibility</button>
+
+    <p id='response1'></p>
+    <p id='response2'></p>
+    <p id='response3'></p>
+    <p id='response4'></p>
+    <p id='response5'></p>
     <p id='compatibility'></p>
+    <p id='remark'></p>
 
 <script>
 console.log('Starting Matchmaker For The Web...');
@@ -101,14 +105,22 @@ function calculateCompatibility() {
     console.log('calculateCompatibility()');
 
     const DESIRED_RESPONSE = [
-        2, /* Disagree */
-        5, /* Strongly Agree */
-        1, /* Strongly Disagree */
-        4, /* Agree */
-        5, /* Strongly Agree */
+        2, // Disagree
+        5, // Strongly Agree
+        1, // Strongly Disagree
+        4, // Agree
+        5, // Strongly Agree
     ]
 
-    const MAX_SCORE = 25;
+    const WEIGHT = [
+        2, // x2
+        1, // x1
+        3, // x3
+        1, // x1
+        2, // x2
+    ]
+
+    const MAX_SCORE = 45;
 
     let question1Response = document.getElementById('q1').selectedOptions[0].value;
     let question2Response = document.getElementById('q2').selectedOptions[0].value;
@@ -116,30 +128,48 @@ function calculateCompatibility() {
     let question4Response = document.getElementById('q4').selectedOptions[0].value;
     let question5Response = document.getElementById('q5').selectedOptions[0].value;
 
-    console.log('Question 1 Answers: ')
-    console.log(document.getElementById('q1').selectedOptions[0].text);
-    console.log(document.getElementById('q1').selectedOptions[0].value);
-    console.log(question1Response);
-
+    //Defines The Compatibilities and Returns Them
     let question1Compatibility = 5 - Math.abs(question1Response - DESIRED_RESPONSE[0]);
+    question1Compatibility *= WEIGHT[0]
+    document.getElementById('response1').innerHTML = 'Question 1 Compatibility: ' + question1Compatibility;
+
     let question2Compatibility = 5 - Math.abs(question2Response - DESIRED_RESPONSE[1]);
+    document.getElementById('response2').innerHTML = 'Question 2 Compatibility: ' + question2Compatibility;
+    question2Compatibility *= WEIGHT[1]
+
     let question3Compatibility = 5 - Math.abs(question3Response - DESIRED_RESPONSE[2]);
+    question3Compatibility *= WEIGHT[2]
+    document.getElementById('response3').innerHTML = 'Question 3 Compatibility: ' + question3Compatibility;
+
     let question4Compatibility = 5 - Math.abs(question4Response - DESIRED_RESPONSE[3]);
+    question4Compatibility *= WEIGHT[3]
+    document.getElementById('response4').innerHTML = 'Question 4 Compatibility: ' + question4Compatibility;
+
     let question5Compatibility = 5 - Math.abs(question5Response - DESIRED_RESPONSE[4]);
+    question5Compatibility *= WEIGHT[4]
+    document.getElementById('response5').innerHTML = 'Question 5 Compatibility: ' + question5Compatibility;
 
-    console.log(question1Compatibility);
-    console.log(question2Compatibility);
-    console.log(question3Compatibility);
-    console.log(question4Compatibility);
-    console.log(question5Compatibility);
+    //Logs the Compatibilities
+    console.log('Question 1: ' + question1Compatibility);
+    console.log('Question 2: ' + question2Compatibility);
+    console.log('Question 3: ' + question3Compatibility);
+    console.log('Question 4: ' + question4Compatibility);
+    console.log('Question 5: ' + question5Compatibility);
 
+    
     let totalCompatibility = question1Compatibility + question2Compatibility + question3Compatibility + question4Compatibility + question5Compatibility;
 
     totalCompatibility *= 100 / MAX_SCORE;
     totalCompatibility = Math.round(totalCompatibility);
     console.log('totalCompatibility = ' + totalCompatibility);
 
-    document.getElementById('compatibility').innerHTML = 'Your compatibility is...';
+    //Closing Remarks
+    if (totalCompatibility < (100 / 3)) document.getElementById('remark').innerHTML = 'I do not want to be in the same room as you!';
+    else if (totalCompatibility < ((100 / 3) * 2)) document.getElementById('remark').innerHTML = 'Hey, would you like to be friends with me?';
+    else if (totalCompatibility < 100) document.getElementById('remark').innerHTML = 'Where have you been all my life?';
+
+    //Returns the Compatibility
+    document.getElementById('compatibility').innerHTML = 'Your compatibility is ' + totalCompatibility + '%';
 }
 </script>
 
