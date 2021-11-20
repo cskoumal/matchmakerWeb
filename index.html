@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<!--
+    Author: Conner Skoumal
+    Scrum: Spider-scrum
+    Professor: Eric Pogue
+-->
+
+<head>
+    <meta charset='UTF-8'>
+    <title>Matchmaker Web</title>
+</head>
+
+<body>
+    <h1 style = 'text-align: center;'>Matchmaker Web</h1>
+    <pre style = 'font-size: 130%; text-align: center;'>
+    ______________________________________________________
+
+    Conner Skoumal Presents
+    With Help From Spider-Scrum
+    Matchmaker: Conner Edition
+    ______________________________________________________
+
+    This program is meant to find out how compatible as people 
+    you and me are. Maybe you'll be my friend, maybe we'll 
+    fall in love, or maybe I'll absolutely despise you. Below 
+    you will be presented with 5 different questions. You'll 
+    need to answer with a number 1-5. 1 would mean strongly 
+    disagree, 2 would mean disagree, 3 would be neutral, 4 
+    would be agree, and 5 would be strongly agree. After 
+    each question you will be told your compatibility score 
+    for that question. At the end it will tell you our total 
+    compatibility!
+
+    I hope you're my soulmate!
+    </pre>
+    <br /><br /><br />
+
+    <hr>
+
+    <br /><br /><br />
+    <!-- Starts Asking Questions -->
+    <label>1.   Marvel Movies are Overrated.</label>
+    <select id='q1'>
+        <option value='5'>Strongly Agree</option>
+        <option value='4'>Agree</option>
+        <option value='3'>Neutral</option>
+        <option value='2'>Disagree</option>
+        <option value='1'>Strongly Disagree</option>
+    </select>
+    <br /><br /><br />
+
+    <label>2.   Portillos is the Best!</label>
+    <select id='q2'>
+        <option value='5'>Strongly Agree</option>
+        <option value='4'>Agree</option>
+        <option value='3'>Neutral</option>
+        <option value='2'>Disagree</option>
+        <option value='1'>Strongly Disagree</option>
+    </select>
+    <br /><br /><br />
+
+    <label>3.   Star Trek is Better Than Star Wars.</label>
+    <select id='q3'>
+        <option value='5'>Strongly Agree</option>
+        <option value='4'>Agree</option>
+        <option value='3'>Neutral</option>
+        <option value='2'>Disagree</option>
+        <option value='1'>Strongly Disagree</option>
+    </select>
+    <br /><br /><br />
+
+    <label>4.   Dogs are Better Than Cats.</label>
+    <select id='q4'>
+        <option value='5'>Strongly Agree</option>
+        <option value='4'>Agree</option>
+        <option value='3'>Neutral</option>
+        <option value='2'>Disagree</option>
+        <option value='1'>Strongly Disagree</option>
+    </select>
+    <br /><br /><br />
+
+    <label>5.   I Love Playing Video-Games!</label>
+    <select id='q5'>
+        <option value='5'>Strongly Agree</option>
+        <option value='4'>Agree</option>
+        <option value='3'>Neutral</option>
+        <option value='2'>Disagree</option>
+        <option value='1'>Strongly Disagree</option>
+    </select>
+    <br /><br /><br />
+
+    <button onclick="calculateCompatibility()">Calculate Compatibility</button>
+    <p id='compatibility'></p>
+
+<script>
+console.log("Starting Matchmaker For The Web...");
+
+function calculateCompatibility() {
+    console.log("calculateCompatibility()");
+
+    const DESIRED_RESPONSE = [
+        2, /* Disagree */
+        5, /* Strongly Agree */
+        1, /* Strongly Disagree */
+        4, /* Agree */
+        5, /* Strongly Agree */
+    ]
+
+    const MAX_SCORE = 30;
+
+    let question1Response = document.getElementById('q1').selectedOptions[0].value;
+    let question2Response = document.getElementById('q2').selectedOptions[0].value;
+    let question3Response = document.getElementById('q3').selectedOptions[0].value;
+    let question4Response = document.getElementById('q4').selectedOptions[0].value;
+    let question5Response = document.getElementById('q5').selectedOptions[0].value;
+
+    console.log("Question 1 Answers: ")
+    console.log(document.getElementById('q1').selectedOptions[0].text);
+    console.log(document.getElementById('q1').selectedOptions[0].value);
+    console.log(question1Response);
+
+    let question1Compatibility = 5 - Math.abs(question1Response - DESIRED_RESPONSE[0]);
+    let question2Compatibility = 5 - Math.abs(question2Response - DESIRED_RESPONSE[1]);
+    let question3Compatibility = 5 - Math.abs(question3Response - DESIRED_RESPONSE[2]);
+    let question4Compatibility = 5 - Math.abs(question4Response - DESIRED_RESPONSE[3]);
+    let question5Compatibility = 5 - Math.abs(question5Response - DESIRED_RESPONSE[4]);
+
+    console.log(question1Compatibility);
+    console.log(question2Compatibility);
+    console.log(question3Compatibility);
+    console.log(question4Compatibility);
+    console.log(question5Compatibility);
+
+    let totalCompatibility = question1Compatibility + question2Compatibility + question3Compatibility + question4Compatibility + question5Compatibility;
+
+    totalCompatibility *= 100 / MAX_SCORE;
+    totalCompatibility = Math.round(totalCompatibility);
+    console.log("totalCompatibility = " + totalCompatibility);
+
+    document.getElementById("compatibility").innerHTML = "Your compatibility is...";
+}
+</script>
+
+</body>
+</html>
