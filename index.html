@@ -91,14 +91,14 @@
     </select>
     <br /><br /><br />
 
-    <button onclick="calculateCompatibility()">Calculate Compatibility</button>
+    <button onclick='calculateCompatibility()'>Calculate Compatibility</button>
     <p id='compatibility'></p>
 
 <script>
-console.log("Starting Matchmaker For The Web...");
+console.log('Starting Matchmaker For The Web...');
 
 function calculateCompatibility() {
-    console.log("calculateCompatibility()");
+    console.log('calculateCompatibility()');
 
     const DESIRED_RESPONSE = [
         2, /* Disagree */
@@ -108,7 +108,7 @@ function calculateCompatibility() {
         5, /* Strongly Agree */
     ]
 
-    const MAX_SCORE = 30;
+    const MAX_SCORE = 25;
 
     let question1Response = document.getElementById('q1').selectedOptions[0].value;
     let question2Response = document.getElementById('q2').selectedOptions[0].value;
@@ -116,7 +116,7 @@ function calculateCompatibility() {
     let question4Response = document.getElementById('q4').selectedOptions[0].value;
     let question5Response = document.getElementById('q5').selectedOptions[0].value;
 
-    console.log("Question 1 Answers: ")
+    console.log('Question 1 Answers: ')
     console.log(document.getElementById('q1').selectedOptions[0].text);
     console.log(document.getElementById('q1').selectedOptions[0].value);
     console.log(question1Response);
@@ -137,9 +137,9 @@ function calculateCompatibility() {
 
     totalCompatibility *= 100 / MAX_SCORE;
     totalCompatibility = Math.round(totalCompatibility);
-    console.log("totalCompatibility = " + totalCompatibility);
+    console.log('totalCompatibility = ' + totalCompatibility);
 
-    document.getElementById("compatibility").innerHTML = "Your compatibility is...";
+    document.getElementById('compatibility').innerHTML = 'Your compatibility is...';
 }
 </script>
 
